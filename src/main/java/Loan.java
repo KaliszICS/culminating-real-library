@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 
+ * Creates a loan object for a library item
  */
 class Loan{
     private Member member;
@@ -10,7 +10,7 @@ class Loan{
     private LocalDate borrowedDate;
 
     /**
-     * 
+     * Constructs a loan
      * @param member a member that represents a library
      * @param borrowedDate the date when the library item was borrowed in the format: dd MMMM yyyy
      * @param item a LibraryItem that represents an item that is borrowed from the library
@@ -22,7 +22,7 @@ class Loan{
     }
 
     /**
-     * 
+     * Gets a library member that is associated with the loan
      * @return returns the member that has the item on loaned
      */
     public Member getMember(){
@@ -30,7 +30,7 @@ class Loan{
     }
 
     /**
-     * 
+     * Gets the borrowed date of when the library member borrowed their book
      * @return a String that represents the date formated: dd MM yyyy, when the item was borrowed
      */
     public String getBorrowedDate(){

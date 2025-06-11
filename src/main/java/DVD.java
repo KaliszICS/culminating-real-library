@@ -4,7 +4,9 @@
  */
 public class DVD extends LibraryItem{
     private int length;
+    private String dvdID;
 
+<<<<<<< HEAD
     /**
      * Constructs a DVD with the given details.
      *
@@ -19,14 +21,35 @@ public class DVD extends LibraryItem{
     public DVD (String title, String author, String description, int yearPublish, String genre, double price, int length) {
     super (title, author, description, yearPublish, genre, price);
     this.length = length;
+=======
+    public DVD (String title, String author, String description, int yearPublish, String genre, double price, int length, String dvdID){
+        super(title,author,description, yearPublish, genre, price);
+        this.length = length;
+        this.dvdID = dvdID;
+    }
+
+    public int getLength(){
+        return this.length;
+    }
+
+    public String getDVDid(){
+        return this.dvdID;
+>>>>>>> 1dea00b (WIP #3)
     }
 
     /**
      * Displays information about the DVD, including the duration.
      */
     @Override
-    public void displayInfo() {
-        super.displayInfo();
-        System.out.println("Duration: " + length);
+    public boolean equals(Object obj){
+        if (obj == null || getClass() != obj.getClass()){
+            return false;
+        }
+
+        DVD dvd = (DVD)obj;
+        if(dvd.getTitle().equals(this.getTitle()) && dvd.getAuthor().equals(this.getAuthor()) && dvd.getDescription().equals(this.description) && dvd.getYearPublish() == this.getYearPublish() && dvd.getGenre().equals(this.genre) && dvd.getPrice() == this.price && dvd.getLength() == this.length && dvd.getDVDid().equals(this.dvdID)){
+            return true;
+        }
+        return false;
     }
 }

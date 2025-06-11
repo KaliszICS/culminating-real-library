@@ -1,5 +1,5 @@
 /**
- * A blueprint for a person 
+ * A blueprint for a person that is used to either create a Librarian or Member
  */
 abstract class Person{
     private String name;
