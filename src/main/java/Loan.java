@@ -23,16 +23,6 @@ class Loan{
 
     /**
      * 
-     * @param borrowedDate
-     * @param item
-     */
-      public Loan(LocalDate borrowedDate, LibraryItem item){
-        this.borrowedDate = borrowedDate;
-        this.item = item;
-    }
-
-    /**
-     * 
      * @return returns the member that has the item on loaned
      */
     public Member getMember(){
@@ -58,13 +48,11 @@ class Loan{
     }
 
     /**
-     * 
+     * Assigns the due date of the Library item depending on what it is such as
+     * a book has a 21 days borrowed limit, a magazine has a 7 days borrowed limit, and a DVD has a 14 days borrowed limit
      * @return a String that represents the due date of the given Library Item
      */
     public String dueDate(){
-         //books -21 days
-        //magazine - 7 days
-        //DVD - 14 days
         LocalDate date = this.borrowedDate;
         if (item instanceof Book){
             date = date.plusDays(21);
@@ -82,7 +70,7 @@ class Loan{
     }
 
     /**
-     * 
+     * Determines the date of when the library member returns their library item back to the library
      * @return a String that represents today's date when the item was returned in the format: dd MMMM yyyy
      */
     public String returnDate(){

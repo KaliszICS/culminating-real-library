@@ -68,20 +68,32 @@ class Member extends Person{
      * @return
      */
     public String checkLoan(Loan loan, LibraryItem item){
+        int index = -1;
+        for (int i = 0; i < borrowedItems.length; i++){
+            if (borrowedItems[i].equals(item)){
+                index  = i;
+                i = borrowedItems.length;
+            }
+        }
+       
 
+        if (index != -1 && loan.getMember().getLibraryCard().equals(getLibraryCard()) && loan.getLibraryItem().equals(item)){
+            return "This item is due by " + loan.dueDate() + ", please make sure to return it by then otherwise penalty charges will be applied."; 
+        }
+        else{
+            return "Either this item is not associated to your account or your loan does not match your current library item";
+        }
     }
 
     /**
      * 
      * @param Librarian
-     * @param loan
      * @param item
      * @return
      */
     public String borrowItem(Librarian Librarian, LibraryItem item){
         if (Librarian.giveItem(item).equals("Item has been found")){
             LibraryItem[] newBorrowedList = new LibraryItem[borrowedItems.length + 1];
-
             for (int i = 0; i < borrowedItems.length; i++){
                 newBorrowedList[i] = borrowedItems[i];
             }
