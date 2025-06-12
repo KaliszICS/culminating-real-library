@@ -15,19 +15,36 @@ class Librarian extends Person{
     private Loan[] loan;
 
     /**
-     * Constructs a libriran 
+     * Constructs a libriran with the following details:
      * @param name a String that represents the librarian's name
      * @param age a integer that represents the librarian's age
      * @param phoneNumber a String that represents the librarian's phone number
      * @param email a String that represents the librarian's email
      * @param librarianID a String that represents the librarian's ID
+     * @param assignLibarary a Libary object that represents the library the librarian is working for
+     */
+    Librarian(String name, int age, String phoneNumber, String email, String librarianID, Library assignLibrary, Loan[] loan){
+        super(name, age, phoneNumber, email);
+        this.librarianID = librarianID;
+        this.assignLibrary = assignLibrary;
+        this.loan = loan;
+    }
+
+    /**
+     * Constructs a libriran that has no loans out and with the following details:
+     * @param name a String that represents the librarian's name
+     * @param age a integer that represents the librarian's age
+     * @param phoneNumber a String that represents the librarian's phone number
+     * @param email a String that represents the librarian's email
+     * @param librarianID a String that represents the librarian's ID
+     * @param assignLibrary a Libary object that represents the library the librarian is working for
      */
     Librarian(String name, int age, String phoneNumber, String email, String librarianID, Library assignLibrary){
         super(name, age, phoneNumber, email);
         this.librarianID = librarianID;
         this.assignLibrary = assignLibrary;
+        this.loan = new Loan[0];
     }
-
     /**
      * Gets the librarian's identification card
      * @return a String that represents the Librarian identification card
@@ -36,8 +53,20 @@ class Librarian extends Person{
         return this.librarianID;
     }
 
+    /**
+     * Gets the libary at which the librarian is assigned at
+     * @return a Library object represents the libary at which the librarian is assigned at
+     */
     public Library getAssignLibrary(){
         return this.assignLibrary;
+    }
+    
+    /**
+     * Gets the list of loans
+     * @return an array of loans representing loans of various library members
+     */
+    public Loan[] getLoan(){
+        return this.loan;
     }
     /**
      * Librarian gives the item if found on a library shelf to a member
@@ -46,7 +75,7 @@ class Librarian extends Person{
      * @return a boolean that represents if an item was succesfully given
      */
     public boolean giveItem(Loan loan, LibraryItem item){
-    if (assignLibrary.checkOutItem(item) && loan.getLibraryItem().equals(item)){
+    if (loan != null && item != null && assignLibrary.checkOutItem(item) && loan.getLibraryItem().equals(item)){
         //saves loan to the loan list
         Loan[] newLoans = new Loan[this.loan.length + 1];
         for (int i = 0; i < this.loan.length; i++){
@@ -61,16 +90,16 @@ class Librarian extends Person{
 
     /**
      * Returns the library item given back to a library shelf
-     * @param loan a Loan objects that represents a loan that is tied with the library item
+     * @param loaned a Loan objects that represents a loan that is tied with the library item
      * @param item a Library item that represents a item
      * @return a boolean whenever if returning the item back to a library shelf was successful or not
      */
-    public boolean returnItem(Loan loan, LibraryItem item){
+    public boolean returnItem(Loan loaned, LibraryItem item){
         //Checks if the loan exists in the list and if it does removes the loan from the list 
-        if (loan.getLibraryItem().equals(item)){
+        if (loaned != null && item != null && loaned.getLibraryItem().equals(item)){
             int itemIndex = -1;
             for (int i = 0; i < this.loan.length; i++){
-                if (this.loan[i].equals(loan)){
+                if (this.loan[i] != null && this.loan[i].equals(loaned)){
                     itemIndex = i;
                     i = this.loan.length;
                 }

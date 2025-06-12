@@ -8,19 +8,36 @@ class Member extends Person{
     private double cash;
 
     /**
-     * Constructs a library member
+     * Constructs a library member with the following details:
      * @param name a String that represents the member's name
      * @param age an integer that represents the member's age
      * @param phoneNumber a String that represents the member's phone number
      * @param email a String that represents the member's email
      * @param libraryCard a String that represents the member's library card
      * @param cash a double that represents the amount of cash that the member is carrying on them
+     * @param borrowedItems a array of library items that represents items that the member has borrowed
      */
     public Member(String name, int age, String phoneNumber, String email, String libraryCard, double cash, LibraryItem[] borrowedItems){
         super(name, age, phoneNumber, email);
         this.libraryCard = libraryCard;
         this.cash = cash;
         this.borrowedItems = borrowedItems;
+    }
+
+    /**
+     * Constructs a library member that has borrowed no items and has the following details:
+     * @param name a String that represents the member's name
+     * @param age an integer that represents the member's age
+     * @param phoneNumber a String that represents the member's phone number
+     * @param email a String that represents the member's email
+     * @param libraryCard a String that represents the member's library card
+     * @param cash a double that represents the amount of cash that the member is carrying on the
+     */
+     public Member(String name, int age, String phoneNumber, String email, String libraryCard, double cash){
+        super(name, age, phoneNumber, email);
+        this.libraryCard = libraryCard;
+        this.cash = cash;
+        this.borrowedItems = new LibraryItem[0];
     }
 
     /**
@@ -73,7 +90,7 @@ class Member extends Person{
         int index = -1;
         for (int i = 0; i < borrowedItems.length; i++){
             if (borrowedItems[i].equals(item)){
-                index  = i;
+                index = i;
                 i = borrowedItems.length;
             }
         }
@@ -94,7 +111,7 @@ class Member extends Person{
      * @return a String value if the library item was successfully added to their acccount
      */
     public String borrowItem(Librarian Librarian, Loan loan, LibraryItem item){
-        if (loan.getMember().getLibraryCard().equals(getLibraryCard()) && loan.getLibraryItem().equals(item)){
+        if (Librarian != null && loan != null && item != null && loan.getMember().getLibraryCard().equals(getLibraryCard()) && loan.getLibraryItem().equals(item)){
             if (Librarian.giveItem(loan, item) == true){
                 LibraryItem[] newBorrowedList = new LibraryItem[borrowedItems.length + 1];
                 for (int i = 0; i < borrowedItems.length; i++){
@@ -118,7 +135,7 @@ class Member extends Person{
      * @return a String that will tell the member what the outcome was of trying to return the item
      */
     public String returnItem(Librarian Librarian, Loan loan, LibraryItem item){
-        if (loan.getMember().getLibraryCard().equals(getLibraryCard()) && loan.getLibraryItem().equals(item)){
+        if (Librarian != null && loan != null && item != null && loan.getMember().getLibraryCard().equals(getLibraryCard()) && loan.getLibraryItem().equals(item)){
             if(Librarian.returnItem(loan, item) == true){
                 int index = -1;
                 for (int i = 0; i < borrowedItems.length; i++){

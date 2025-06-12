@@ -3,6 +3,7 @@ import org.junit.jupiter.api.*;
 
 import java.beans.Transient;
 import java.io.*;
+import java.time.LocalDate;
 
 public class ExampleTest {
 
@@ -101,6 +102,33 @@ public class ExampleTest {
       assertEquals(false, library2.checkOutItem(item1));
    }
 
+   @Test
+   public void TestLibrarian(){
+      DVD item1 = new DVD("Blue days", "Human a", "The sky is blue.", 2000, "horror", 19.00, 60, "AGGAS2GDX");
+      Magazine item2 = new Magazine("Top 10 Potatoes", "Potato", "Its just a potato", 1983, "classic", 2.00, 20, 1244232);
+      Book item3 = new Book("Need Sleep", "Anzg Aka", "Can I sleep now?", 2007, "Self-help", 100.00, 512, "1GAS312F");
+      Book item4 = new Book("Need Sleep pls", "Anzg Aka", "Can I sleep now?", 2007, "Self-help", 100.00, 512, "1GAS312F");
+      LibraryItem[] storedItems1 = {item1, item2};
+      LibraryItem[] storedItems2 = {item3};
+
+      Shelf shelf1 = new Shelf("Single-style", 3, storedItems1);
+      Shelf shelf2 = new Shelf("dantilever-style", 4, storedItems2);
+      Shelf[] shelves1 = {shelf1, shelf2};
+      Library library = new Library(shelves1);
+
+      LibraryItem[] borrowedItems = {item4};
+      LocalDate current = LocalDate.now();
+      Member member1 = new Member("AS", 19, "138-242-5124", "YepitsMe@gmail.com", "asDASF13", borrowedItems);
+      Loan loan1 = new Loan(member1, current, item4);
+      Loan loan2 = new Loan(member1, current, item3);
+      assertEquals("12 June 2025", loan1.getBorrowedDate());
+
+      Loan[] loans = {loan1, loan2};
+      Librarian lib1 = new Librarian("Shesh", 19, "123-423-2145","whoknowswhere@gmail.com", "SDA12424", library, loans);
+      assertEquals(true, lib1.returnItem(loan1, item4));
+      assertEquals(true, lib1.giveItem(loan1, item4));
+      assertEquals(false, lib1.giveItem(loan2, item4));
+   }
    // @Test
    // public void testCreationPeople(){
 

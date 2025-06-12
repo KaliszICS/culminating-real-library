@@ -155,7 +155,7 @@ public class Library{
     /**
      * Checkout a library item for a library member
      * @param item a Library item that represents the item that the person wants to checkout from the library
-     * @return a boolean that tells you if the checkout of the library item was succesful
+     * @return a boolean that tells you if the checkout of the library item was successful
      */
     public boolean checkOutItem(LibraryItem item) {
         int indexOfItem = findItem(item);
