@@ -71,6 +71,14 @@ class Member extends Person{
     public double getCash(){
         return this.cash;
     }
+    
+    /**
+     * Gets the member's borrowed items that they have on their account
+     * @return an array of library items that represents the items that the library member has borrowed from the library
+     */
+    public LibraryItem[] getBorrowedItems(){
+        return this.borrowedItems;
+    }
 
     /**
      * Finds out how many items the library member currently loaned to them
