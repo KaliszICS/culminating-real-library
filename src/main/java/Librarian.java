@@ -4,10 +4,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
- * Creates a librarian object
+ * The Librarian class that represents a librarian in a library system.
+ * The Librarian class extends the Person class.
  */
 class Librarian extends Person{
     private String librarianID;
@@ -22,9 +22,10 @@ class Librarian extends Person{
      * @param email a String that represents the librarian's email
      * @param librarianID a String that represents the librarian's ID
      */
-    Librarian(String name, int age, String phoneNumber, String email, String librarianID){
+    Librarian(String name, int age, String phoneNumber, String email, String librarianID, Library assignLibrary){
         super(name, age, phoneNumber, email);
         this.librarianID = librarianID;
+        this.assignLibrary = assignLibrary;
     }
 
     /**
@@ -35,6 +36,9 @@ class Librarian extends Person{
         return this.librarianID;
     }
 
+    public Library getAssignLibrary(){
+        return this.assignLibrary;
+    }
     /**
      * Librarian gives the item if found on a library shelf to a member
      * @param loan a Loan Object that represents the current library item on loan
@@ -42,7 +46,7 @@ class Librarian extends Person{
      * @return a boolean that represents if an item was succesfully given
      */
     public boolean giveItem(Loan loan, LibraryItem item){
-     if (loan.getLibraryItem().equals(item) && assignLibrary.findItem(item)){
+    if (assignLibrary.checkOutItem(item) && loan.getLibraryItem().equals(item)){
         //saves loan to the loan list
         Loan[] newLoans = new Loan[this.loan.length + 1];
         for (int i = 0; i < this.loan.length; i++){
@@ -50,30 +54,7 @@ class Librarian extends Person{
         }
         newLoans[this.loan.length] = loan;
         this.loan = newLoans;
-
-        //Checks if item exists on shelf
-        Shelf[] shelves = assignLibrary.getShelves();
-        boolean found = false;
-        int shelfIndex = -1;
-        for (int i = 0; i < shelves.length; i++){
-            Shelf shelf = shelves[i];
-            LibraryItem[] items = shelf.getItems();
-
-            for (int j = 0; j < items.length; j++){
-                if (items[j].equals(item)){
-                    found = true;
-                    j = items.length;
-                    shelfIndex = i;
-                }
-            }
-
-            if (shelfIndex != -1){
-                shelf.removeItem(loan, item);
-                i = shelves.length;
-                return true;
-                }
-            }
-            return false;
+        return true;
         }
         return false;
     }
@@ -86,29 +67,28 @@ class Librarian extends Person{
      */
     public boolean returnItem(Loan loan, LibraryItem item){
         //Checks if the loan exists in the list and if it does removes the loan from the list 
-        int itemIndex = -1;
-        for (int i = 0; i < this.loan.length; i++){
-            if (this.loan[i].equals(loan)){
-                itemIndex = i;
-                i = this.loan.length;
-            }
-        }
-        int currentIndex = 0;
-        if (itemIndex != -1){
-            Loan[] newLoans = new Loan[this.loan.length - 1];
+        if (loan.getLibraryItem().equals(item)){
+            int itemIndex = -1;
             for (int i = 0; i < this.loan.length; i++){
-                if (i != itemIndex){
-                   newLoans[currentIndex++] = this.loan[i];
+                if (this.loan[i].equals(loan)){
+                    itemIndex = i;
+                    i = this.loan.length;
                 }
             }
+       
+        //Updates the loans if the loan existed in the list
+            int currentIndex = 0;
+            if (itemIndex != -1){
+                Loan[] newLoans = new Loan[this.loan.length - 1];
+                for (int i = 0; i < this.loan.length; i++){
+                    if (i != itemIndex){
+                    newLoans[currentIndex++] = this.loan[i];
+                    }
+                }
             this.loan = newLoans;
-            Shelf[] shelves = assignLibrary.getShelves();
-            for (int i = 0; i < shelves.length; i++){
-                if (shelves[i].addItem(item) != false){
-                    return true;
-                }
+            boolean returned = assignLibrary.checkInItem(item);
+            return returned;
             }
-            return false;
         }
         return false;
     }
@@ -119,11 +99,12 @@ class Librarian extends Person{
     public void saveLoans(){
         BufferedWriter writer = null;
         try{
-            writer = new BufferedWriter(new FileWriter("loan.txt"));
+            writer = new BufferedWriter(new FileWriter("savedLoan.txt"));
             for (int i = 0; i < loan.length; i++){
                 writer.write(loan[i].toString());
                 writer.newLine();
             }
+            writer.write("Saved Date: " + LocalDate.now() + "\n");
         }
         catch (IOException e){
            System.out.println(e);
@@ -146,7 +127,7 @@ class Librarian extends Person{
     public void loadLoans(){
         BufferedReader reader = null;
         try{
-            reader = new BufferedReader(new FileReader("loan.txt"));
+            reader = new BufferedReader(new FileReader("savedLoan.txt"));
             String line;
             while ((line = reader.readLine()) != null){
                System.out.println(line);

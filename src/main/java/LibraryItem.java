@@ -1,16 +1,9 @@
-<<<<<<< HEAD
 /**
- * LibraryItem class represents a general item in a library, such as a book, DVD, or magazine.
+ * LibraryItem class is a blueprint used to create a general item in a library, such as a book, DVD, or magazine.
  * It stores common attributes like title, author, description, year published, genre, and price.
  */
 
-class LibraryItem {
-=======
-abstract class LibraryItem {
-    /*
-     * 
-     */
->>>>>>> 1dea00b (WIP #3)
+ abstract class LibraryItem {
     protected String title;
     protected String author;
     protected String description;
@@ -21,12 +14,12 @@ abstract class LibraryItem {
      /**
      * Constructs a LibraryItem with all the common fields.
      *
-     * @param title         The title of the item.
-     * @param author        The author or creator.
-     * @param description   A brief description.
-     * @param yearPublish   Year the item was published.
-     * @param genre         Genre or category.
-     * @param price         The item's price.
+     * @param title         A String representing the title of the item.
+     * @param author        A String representing the author or creator.
+     * @param description   A String representing a brief description.
+     * @param yearPublish   An integer representing the year the item was published.
+     * @param genre         A String representing genre or category of the library item.
+     * @param price         A double representing the item's price, which will be the fine cost if the item is overdue.
      */
     
     public LibraryItem (String title, String author, String description, int yearPublish, String genre, double price) {
@@ -37,47 +30,59 @@ abstract class LibraryItem {
         this.genre = genre;
         this.price = price;
     }
-<<<<<<< HEAD
-/*
- * Displays the information of the library item.
- * This includes the title, author, description, year published, genre, and price.
- * This method is intended to be overridden by subclasses for specific item types.
- */
-    public void displayInfo (){
-        System.out.println("Title: " + title);
-        System.out.println("Author: " + author);
-        System.out.println("Description: " + description);
-        System.out.println("Year published: " + yearPublish);
-        System.out.println("Genre: " + genre);
-        System.out.println("Price: $" + price);
 
-=======
-
+    /**
+     * Gets the title of the library item
+     * @return a String that represents the title of the library item
+     */
     public String getTitle(){
         return this.title;
->>>>>>> 1dea00b (WIP #3)
     }
 
+    /**
+     * Gets the author of the author of the library item
+     * @return a String that represents the author of the library item
+     */
     public String getAuthor(){
         return this.author;
     }
 
+    /**
+     * Gets the description of the library item
+     * @return a String that represents the description of the library item
+     */
     public String getDescription(){
         return this.description;
     }
 
+    /**
+     * Gets the year the library item was published
+     * @return an integer that represents the year the library item was published
+     */
     public int getYearPublish(){
        return this.yearPublish;
     }
 
+    /**
+     * Gets the genre of the library item
+     * @return a String that represents the genre of the library item
+     */
     public String getGenre(){
         return this.genre;
     }
 
+    /**
+     * Gets the price of the library item
+     * @return a double that represents the price of the library item
+     */
     public double getPrice(){
         return this.price;
     }
 
+    /** 
+     * Writes a String representation of the library item
+     * @return a String that is in the format: "title" by "author" published in "yearPublish"
+     */
     @Override
     public String toString(){
         return this.title + " by " + this.author + " published in " + this.yearPublish;

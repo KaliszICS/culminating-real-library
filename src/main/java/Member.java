@@ -1,5 +1,6 @@
 /**
- * Creates a Library member objet
+ * The Member class that represents a library member in the library system.
+ * The Member class extends the Person class.
  */
 class Member extends Person{
     private String libraryCard;

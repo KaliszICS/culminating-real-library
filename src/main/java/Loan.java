@@ -87,7 +87,6 @@ class Loan{
     public boolean OverDue(){
         String date = returnDate();
         int comparison = date.compareTo(getBorrowedDate());
-        
         if (comparison >= 0){
             return false;
         }
@@ -97,7 +96,7 @@ class Loan{
     }
 
     /**
-     * Allows the member to pay off their library fine if they have enough money
+     * Calls the member to pay off their library fine if they have enough money on their account
      * @return a String that tells the user if their fine has been paid off or not
      */
     public String payFine(){
@@ -107,8 +106,13 @@ class Loan{
             return "You have paid off your fine.";
         }
         else{
-            double cashNeeded = fine - member.getCash();
+            double cashNeeded = fine - this.member.getCash();
             return "You are $" + cashNeeded + " short to paying off the fine.";
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Account: " +  this.member.getLibraryCard() + " || LibraryItem: " + this.item.toString() + " || Borrowed Date: " + getBorrowedDate();
     }
 }

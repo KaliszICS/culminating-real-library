@@ -56,7 +56,7 @@ abstract class Person{
 
     /**
      * Sets a String value to phone number
-     * @param newPhoneNumber
+     * @param newPhoneNumber a String that represents a new phone number
      */
     public void setPhoneNumber(String newPhoneNumber){
         this.phoneNumber = newPhoneNumber;
@@ -64,7 +64,7 @@ abstract class Person{
 
     /**
      * Sets a String value to email
-     * @param newEmail
+     * @param newEmail a String that represents a new email
      */
     public void setEmail(String newEmail){
         this.email = newEmail;
