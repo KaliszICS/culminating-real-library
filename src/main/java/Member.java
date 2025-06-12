@@ -175,6 +175,6 @@ class Member extends Person{
             }
             return "Your loan was not found in the list of loans provided to the Librarian, therefore cannot return this library item";
         }
-        return "Item cannot be returned because the loan doesn't match the item currently being retured.";
+        return "Item cannot be returned because the loan doesn't match the item currently being returned.";
     }
 }
