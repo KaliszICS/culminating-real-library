@@ -88,5 +88,3 @@
         return this.title + " by " + this.author + " published in " + this.yearPublish;
     }
 }
-
-}
