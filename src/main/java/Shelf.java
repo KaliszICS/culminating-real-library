@@ -65,8 +65,16 @@ public class Shelf{
         return this.itemsStored;
     }
 
+<<<<<<< HEAD
     /**
      * Gets the items stored in the shelf
+=======
+    public void setItemsStored(int itemStored) {
+        this.itemsStored = itemStored;
+    }
+
+    /*
+>>>>>>> f046681 (Done)
      * @return returns Items that are stored in an ArrayList
      */
     public LibraryItem[] getItems() {
