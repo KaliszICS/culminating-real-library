@@ -1,0 +1,13 @@
+Your code does not run!
+You created a framework but the actual program does nothing if a coder doesn't use it.  You should have been building a program for this assignment.
+The member should probably not have to ability to do all the steps required for returning and signing out a book, this should be up to the library.
+Your framework is fantasic but it needs to be able to run!  I would also make sure to use arraylists for anything that grows and shrinks.
+
+
+
+K(30%): 100
+I(30%): 90
+C(10%): 100
+A(30%): 50
+
+82%

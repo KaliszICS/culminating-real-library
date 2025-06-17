@@ -1,0 +1,4 @@
+Library item, magazine, dvd all seem to be library items.  This means it should be using inheritance arrows.
+Member and Librarian also appear to be inheritance and should use arrows appropriately.
+Try to organize it a little better to avoid line cross overs so it is easier to follow
+80
